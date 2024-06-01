@@ -1,0 +1,9 @@
+version: '4.5'
+
+services:
+  parser:
+    build: .
+    ports:
+      - "5258:5258"
+    environment:
+      NATS_URL: nats://46.29.236.28:4222
