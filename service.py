@@ -36,6 +36,8 @@ class Service:
         await self.pub(cv.id, "birthdate", birthdate)
         living = await self.parser.extract_living(cv.text)
         await self.pub(cv.id, "birthdate", living)
+        skills = await self.parser.extract_skills(cv.text)
+        await self.pub(cv.id, "skills", skills)
 
         works = await self.parser.extract_work(cv.text)
         for work in works:

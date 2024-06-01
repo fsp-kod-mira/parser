@@ -95,3 +95,21 @@ class Parser:
                 f"{company} {start_month}.{start_year} - {end_date}, {position}")
 
         return work_experiences
+
+    async def extract_skills(self, text):
+        # Регулярное выражение для извлечения блока "Ключевые навыки"
+        skills_pattern = re.compile(
+            r'Ключевые навыки\s*(.*)', re.IGNORECASE | re.DOTALL)
+
+        # Найти блок с ключевыми навыками
+        skills_match = skills_pattern.search(text)
+        if skills_match:
+            skills_block = skills_match.group(1)
+
+            # Разделить навыки по любым пробелам, запятым и переносам строк
+            skills = re.split(r'\s{2,}|\n|,\s*', skills_block)
+
+            # Удалить пустые строки и лишние пробелы
+            skills = [skill.strip() for skill in skills if skill.strip()]
+
+            return ",".join(skills)
