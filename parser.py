@@ -46,15 +46,15 @@ class Parser:
 
     async def extract_phone(self, text):
         pattern = r'\+?\d[\d\-\(\) ]{9,}\d'
-        return self.extract_with_regex(pattern, text)
+        return await self.extract_with_regex(pattern, text)
 
     async def extract_email(self, text):
         pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-        return self.extract_with_regex(pattern, text)
+        return await self.extract_with_regex(pattern, text)
 
     async def extract_date_of_birth(self, text):
         pattern = r'\b(\d{1,2})(?:\s|\.)?(?:января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря|\d{1,2})(?:\s|\.)?(\d{4})\b'
-        return self.extract_with_regex(pattern, text)
+        return await self.extract_with_regex(pattern, text)
 
     async def extract_living(self, text):
         doc = Doc(text)
@@ -69,7 +69,7 @@ class Parser:
             if span.type in ['LOC', 'GPE']:
                 span.normalize(self.morph_vocab)
                 locations.append(span.normal)
-        return locations
+        return ",".join(locations)
 
     async def extract_work(self, text):
         work_pattern = re.compile(
@@ -93,3 +93,5 @@ class Parser:
             position = match.group(5).strip()
             work_experiences.append(
                 f"{company} {start_month}.{start_year} - {end_date}, {position}")
+
+        return work_experiences
