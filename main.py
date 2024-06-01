@@ -12,7 +12,7 @@ async def main():
     js = nc.jetstream()
 
     try:
-        await js.add_stream(name="main-stream", subjects=["cv.new"])
+        await js.add_stream(name="main-stream", subjects=["cv.new", "cv.feature"])
     except Exception as e:
         print(f"Stream might already exist: {e}")
 
