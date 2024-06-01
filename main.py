@@ -1,6 +1,7 @@
 from parser import Parser
 import asyncio
 
+
 async def main():
     parser = Parser()
     res = await parser.extract_name("""
